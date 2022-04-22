@@ -1,5 +1,9 @@
 package it.corso.java.thread;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import it.corso.java.thread.concorrenza.GetSitePage;
 
 public class Main {
@@ -14,6 +18,13 @@ public class Main {
 			e.printStackTrace();
 		}
  	}
+	
+	private void esempioConcorrenzaExecutor() {
+		
+		List<Callable<String>> siti = new ArrayList<Callable<String>>();
+		
+		
+	}
 	
 	private void esempioConcorrenzaThread() throws InterruptedException {
 		
