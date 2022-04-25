@@ -3,8 +3,15 @@ package it.corso.java.thread;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 
+import it.corso.java.thread.concorrenza.GetSitePageForkJoin;
 import it.corso.java.thread.concorrenza.GetSitePage;
+import it.corso.java.thread.concorrenza.GetSitePageExecutor;
 
 public class Main {
 
@@ -12,16 +19,49 @@ public class Main {
 		
 		Main m = new Main();
 		
-		try {
-			m.esempioConcorrenzaThread();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
- 	}
+//		try {
+//			m.esempioConcorrenzaThread();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+ 	
+//		try {
+//			m.esempioConcorrenzaExecutor();
+//		} catch (InterruptedException | ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		m.esempioConcorrenzaForkJoin();
 	
-	private void esempioConcorrenzaExecutor() {
+	}
+	
+	private void esempioConcorrenzaForkJoin() {
+		
+		ForkJoinPool f = new ForkJoinPool();
+		
+		System.out.println(f.invoke(new GetSitePageForkJoin("http://www.paolopreite.it")));
+		System.out.println(f.invoke(new GetSitePageForkJoin("http://www.google.it")));
+		
+		f.shutdown();
+	}
+		
+	private void esempioConcorrenzaExecutor() throws InterruptedException, ExecutionException {
 		
 		List<Callable<String>> siti = new ArrayList<Callable<String>>();
+		
+		siti.add(new GetSitePageExecutor("http://www.paolopreite.it"));
+		siti.add(new GetSitePageExecutor("http://www.google.it"));
+		
+		ExecutorService ex = Executors.newSingleThreadExecutor();
+		
+		List<Future<String>> out = ex.invokeAll(siti);
+		
+		for (Future<String> future : out) {
+			System.out.println(future.get());
+		}
+		
+		ex.shutdown();
 		
 		
 	}
