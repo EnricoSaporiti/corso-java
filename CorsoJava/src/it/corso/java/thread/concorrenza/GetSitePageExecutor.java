@@ -26,8 +26,6 @@ public class GetSitePageExecutor implements Callable<String> {
 		this.url = url;
 	}
 
-
-
 	@Override
 	public String call() throws Exception {
 		try {
