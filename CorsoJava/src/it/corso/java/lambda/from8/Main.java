@@ -11,7 +11,7 @@ public class Main {
 			if(a==b) {
 				return a*b;
 			} else {
-				throw new Exception("i due lati non sono uguali");
+//				throw new Exception("i due lati non sono uguali");
 				return 0;
 			}
 		};
@@ -26,5 +26,8 @@ public class Main {
 		
 	
 	}
+	
+	
+	
 
 }
