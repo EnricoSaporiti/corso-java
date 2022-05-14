@@ -12,7 +12,7 @@ import it.corso.java.Utils;
 public class GetSitePageExecutor implements Callable<String> {
 
 	private String url;
-	
+
 	public String getUrl() {
 		return url;
 	}
@@ -32,9 +32,9 @@ public class GetSitePageExecutor implements Callable<String> {
 			URL u = new URL(url);
 			URLConnection con = u.openConnection();
 			InputStream is = con.getInputStream();
-			
+
 			return Utils.getString(is);
-			
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
